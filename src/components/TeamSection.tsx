@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Linkedin, Twitter, Mail } from 'lucide-react';
+import { Linkedin, Twitter, Mail, Instagram, Globe } from 'lucide-react';
 
 const teamMembers = [
   {
@@ -8,24 +8,44 @@ const teamMembers = [
     role: 'Founder & CEO',
     description: 'Visionary leader driving innovation and strategic growth',
     image: '/Fahad.png',
+    socials: [
+      { icon: Linkedin, link: 'https://www.linkedin.com/in/fahad-ali-maqsood-3187041a7?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+      { icon: Instagram, link: 'https://www.instagram.com/fahad_jutt1314/' }, // Changed Twitter to Instagram
+      { icon: Globe, link: 'https://fahad-ali-pi.vercel.app/' }      // Changed Mail to Portfolio (Globe)
+    ]
   },
   {
     name: 'Abdul Moiz',
     role: 'Managing Director',
     description: 'Expert in operations and business development',
     image: '/moiz.png',
+    socials: [
+      { icon: Linkedin, link: 'https://pk.linkedin.com/in/abdul-moiz-700016230?trk=public_profile_browsemap' },
+      { icon: Instagram, link: 'https://www.instagram.com/moozey89/' }, // Changed Twitter to Instagram
+      { icon: Mail, link: 'mailto:moozey89@gmail.com' }
+    ]
   },
   {
     name: 'Salman Baloch',
     role: 'CFO',
     description: 'Financial strategist ensuring sustainable growth',
     image: '/Salman.png',
+    socials: [
+      { icon: Linkedin, link: '#' },
+      { icon: Twitter, link: '#' },
+      { icon: Mail, link: '#' }
+    ]
   },
   {
     name: 'Shayan Ali',
-    role: 'R&D Engineer', // Shortened slightly for better fit, or keep full if preferred
+    role: 'R&D Engineer',
     description: 'Tech innovator pushing boundaries in development',
     image: '/Shayan.png',
+    socials: [
+      { icon: Linkedin, link: '#' },
+      { icon: Globe, link: 'https://shayan-eight.vercel.app/' },    // Changed Twitter to Portfolio (Globe)
+      { icon: Mail, link: 'mailto:shayan.ali.shahh@gmail.com' }
+    ]
   },
 ];
 
@@ -120,17 +140,21 @@ const TeamSection = () => {
                   <p className="text-primary/80 text-sm font-medium mb-3 uppercase tracking-wide">
                     {member.role}
                   </p>
-                  {/* Added Description to fill space and add value */}
                   <p className="text-muted-foreground/80 text-sm leading-relaxed">
                     {member.description}
                   </p>
                 </div>
 
-                {/* Social Links */}
+                {/* Social Links - Now Dynamic */}
                 <div className="flex items-center gap-3 z-10">
-                  <SocialIcon Icon={Linkedin} delay={0} />
-                  <SocialIcon Icon={Twitter} delay={0.1} />
-                  <SocialIcon Icon={Mail} delay={0.2} />
+                  {member.socials.map((social, index) => (
+                    <SocialIcon 
+                      key={index} 
+                      Icon={social.icon} 
+                      delay={index * 0.1} 
+                      href={social.link} 
+                    />
+                  ))}
                 </div>
               </div>
             </motion.div>
@@ -141,10 +165,10 @@ const TeamSection = () => {
   );
 };
 
-// Helper component for cleaner code
-const SocialIcon = ({ Icon, delay }) => (
+// Helper component
+const SocialIcon = ({ Icon, delay, href }) => (
   <motion.a
-    href="#"
+    href={href}
     initial={{ opacity: 0, scale: 0.8 }}
     whileInView={{ opacity: 1, scale: 1 }}
     transition={{ delay }}
