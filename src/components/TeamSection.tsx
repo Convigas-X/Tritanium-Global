@@ -31,9 +31,9 @@ const teamMembers = [
     description: 'Financial strategist ensuring sustainable growth',
     image: '/Salman.png',
     socials: [
-      { icon: Linkedin, link: '#' },
-      { icon: Twitter, link: '#' },
-      { icon: Mail, link: '#' }
+      { icon: Linkedin, link: 'https://www.linkedin.com/in/balochsalmanofficial' },
+      { icon: Instagram, link: 'https://www.instagram.com/balochsalmanofficial?igsh=MTJmNDlsYnhrazBpeA==' },
+      { icon: Mail, link: 'Mailto:salmanabaloch27@gmail.com' }
     ]
   },
   {
@@ -181,3 +181,4 @@ const SocialIcon = ({ Icon, delay, href }) => (
 );
 
 export default TeamSection;
+
