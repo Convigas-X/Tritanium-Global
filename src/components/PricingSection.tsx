@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -53,6 +54,11 @@ const pricingPlans = [
 const PricingSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const navigate = useNavigate();
+
+  const handleGetStarted = (planName: string) => {
+    navigate(`/onboarding?plan=${encodeURIComponent(planName)}`);
+  };
 
   return (
     <section id="pricing" className="py-16 md:py-20 relative overflow-hidden">
@@ -137,6 +143,7 @@ const PricingSection = () => {
                   variant={plan.popular ? 'default' : 'outline'}
                   size="lg"
                   className="w-full"
+                  onClick={() => handleGetStarted(plan.name)}
                 >
                   Get Started
                 </Button>

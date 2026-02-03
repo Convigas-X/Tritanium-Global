@@ -1,25 +1,30 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Megaphone, Code2, Settings, Sparkles } from 'lucide-react';
 
 const services = [
   {
+    id: 'digital-marketing',
     icon: Megaphone,
     title: 'Digital Marketing & Lead Gen',
     description: 'Verified strategies and performance marketing that deliver measurable ROI and sustainable growth.',
   },
   {
+    id: 'web-app-development',
     icon: Code2,
     title: 'Web & App Development',
     description: 'Custom, scalable IT solutions built with cutting-edge technologies for modern businesses.',
   },
   {
+    id: 'it-management',
     icon: Settings,
     title: 'IT Management & Consulting',
     description: 'Seamless integration and process management to optimize your digital infrastructure.',
   },
   {
+    id: 'specialized-subsidiaries',
     icon: Sparkles,
     title: 'Specialized Subsidiaries',
     description: 'NexLeed delivers exclusive GBP optimization and Local SEO strategies for regional dominance.',
@@ -29,6 +34,11 @@ const services = [
 const ServicesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const navigate = useNavigate();
+
+  const handleLearnMore = (serviceId: string) => {
+    navigate(`/service/${serviceId}`);
+  };
 
   return (
     <section id="services" className="py-16 md:py-20 relative overflow-hidden">
@@ -63,7 +73,10 @@ const ServicesSection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.15 }}
             >
-              <div className="group h-full p-8 rounded-3xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-glow-sm hover:-translate-y-2">
+              <div 
+                className="group h-full p-8 rounded-3xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-glow-sm hover:-translate-y-2 cursor-pointer"
+                onClick={() => handleLearnMore(service.id)}
+              >
                 {/* Icon Container */}
                 <div className="w-14 h-14 rounded-2xl bg-primary-subtle flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
                   <service.icon className="w-7 h-7 text-primary" />

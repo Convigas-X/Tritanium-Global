@@ -21,8 +21,8 @@ const teamMembers = [
     image: '/moiz.png',
     socials: [
       { icon: Linkedin, link: 'https://pk.linkedin.com/in/abdul-moiz-700016230?trk=public_profile_browsemap' },
-      { icon: Instagram, link: 'https://www.instagram.com/moozey89/' }, // Changed Twitter to Instagram
-      { icon: Mail, link: 'mailto:moozey89@gmail.com' }
+      { icon: Instagram, link: 'https://www.instagram.com/moozey89/' },
+      { icon: Mail, link: 'mailto:md.tritaniumglobal@gmail.com' }
     ]
   },
   {
@@ -33,7 +33,7 @@ const teamMembers = [
     socials: [
       { icon: Linkedin, link: 'https://www.linkedin.com/in/balochsalmanofficial' },
       { icon: Instagram, link: 'https://www.instagram.com/balochsalmanofficial?igsh=MTJmNDlsYnhrazBpeA==' },
-      { icon: Mail, link: 'Mailto:salmanabaloch27@gmail.com' }
+      { icon: Mail, link: 'mailto:cfo.tritaniumglobal@gmail.com' }
     ]
   },
   {
@@ -65,7 +65,7 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 100,
       damping: 15
     }

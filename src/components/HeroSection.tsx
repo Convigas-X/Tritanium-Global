@@ -192,10 +192,30 @@ const HeroSection = () => {
             transition={{ delay: 0.7, duration: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button variant="hero" size="lg" className="rounded-sm">
+            <Button 
+              variant="hero" 
+              size="lg" 
+              className="rounded-sm"
+              onClick={() => {
+                const servicesSection = document.getElementById('services');
+                if (servicesSection) {
+                  servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+            >
               Explore Solutions
             </Button>
-            <Button variant="hero-outline" size="lg" className="rounded-sm">
+            <Button 
+              variant="hero-outline" 
+              size="lg" 
+              className="rounded-sm"
+              onClick={() => {
+                const philosophySection = document.getElementById('philosophy');
+                if (philosophySection) {
+                  philosophySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+            >
               Our Approach
             </Button>
           </motion.div>

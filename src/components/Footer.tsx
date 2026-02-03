@@ -1,10 +1,19 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { MapPin, Mail, Phone, Linkedin, Twitter, Facebook, Instagram } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { MapPin, Linkedin, Twitter, Facebook, Instagram, CheckCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import logo from '@/assets/logo.svg';
 
 const Footer = () => {
@@ -16,6 +25,7 @@ const Footer = () => {
     email: '',
     message: '',
   });
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -29,6 +39,12 @@ const Footer = () => {
     // Handle form submission here
     console.log('Form submitted:', formData);
     // You can add API call here
+    setShowSuccessPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowSuccessPopup(false);
+    setFormData({ name: '', email: '', message: '' });
   };
 
   const footerLinks = {
@@ -45,10 +61,10 @@ const Footer = () => {
       { name: 'Contact', href: '#' },
     ],
     resources: [
-      { name: 'Blog', href: '#' },
-      { name: 'Case Studies', href: '#' },
-      { name: 'Documentation', href: '#' },
-      { name: 'Support', href: '#' },
+      { name: 'Blog', href: '/blog' },
+      { name: 'Case Studies', href: '/case-studies' },
+      { name: 'Documentation', href: '/documentation' },
+      { name: 'Support', href: '/support' },
     ],
   };
 
@@ -60,6 +76,7 @@ const Footer = () => {
   ];
 
   return (
+    <>
     <footer id="global" className="relative pt-24 pb-8 overflow-hidden" ref={ref}>
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-card to-card" />
@@ -291,12 +308,12 @@ const Footer = () => {
               <ul className="space-y-3">
                 {footerLinks.resources.map((link) => (
                   <li key={link.name}>
-                    <a
-                      href={link.href}
+                    <Link
+                      to={link.href}
                       className="text-muted-foreground hover:text-primary transition-colors text-sm"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -309,17 +326,42 @@ const Footer = () => {
               © 2026 Tritanium Global. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">
+              <Link to="/privacy-policy" className="text-muted-foreground hover:text-primary transition-colors text-sm">
                 Privacy Policy
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">
+              </Link>
+              <Link to="/terms-of-service" className="text-muted-foreground hover:text-primary transition-colors text-sm">
                 Terms of Service
-              </a>
+              </Link>
             </div>
           </div>
         </div>
       </div>
     </footer>
+
+    {/* Success Popup */}
+    <Dialog open={showSuccessPopup} onOpenChange={(open) => !open && closePopup()}>
+      <DialogContent className="sm:max-w-md border-primary/30">
+        <DialogHeader>
+          <div className="flex items-center gap-3">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/20">
+              <CheckCircle className="h-7 w-7 text-primary" />
+            </div>
+            <div>
+              <DialogTitle className="text-xl">Thank You!</DialogTitle>
+              <DialogDescription>
+                Your message has been sent successfully. Our team will get back to you shortly.
+              </DialogDescription>
+            </div>
+          </div>
+        </DialogHeader>
+        <DialogFooter className="sm:justify-center">
+          <Button onClick={closePopup} variant="hero" size="lg">
+            Close
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+    </>
   );
 };
 

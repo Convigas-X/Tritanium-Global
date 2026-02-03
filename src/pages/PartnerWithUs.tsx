@@ -5,8 +5,16 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import logo from '@/assets/logo.svg';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, CheckCircle } from 'lucide-react';
 
 const PartnerWithUs = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +25,7 @@ const PartnerWithUs = () => {
     website: '',
     message: '',
   });
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -30,6 +39,19 @@ const PartnerWithUs = () => {
     // Handle form submission here
     console.log('Form submitted:', formData);
     // You can add API call here
+    setShowSuccessPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowSuccessPopup(false);
+    setFormData({
+      companyName: '',
+      contactName: '',
+      email: '',
+      phone: '',
+      website: '',
+      message: '',
+    });
   };
 
   return (
@@ -239,13 +261,40 @@ const PartnerWithUs = () => {
                 </Button>
 
                 <p className="text-xs text-muted-foreground text-center">
-                  By submitting this form, you agree to our privacy policy and terms of service.
+                  By submitting this form, you agree to our{' '}
+                  <Link to="/privacy-policy" className="text-primary hover:underline">Privacy Policy</Link>
+                  {' '}and{' '}
+                  <Link to="/terms-of-service" className="text-primary hover:underline">Terms of Service</Link>.
                 </p>
               </form>
             </div>
           </motion.div>
         </div>
       </div>
+
+      {/* Success Popup */}
+      <Dialog open={showSuccessPopup} onOpenChange={(open) => !open && closePopup()}>
+        <DialogContent className="sm:max-w-md border-primary/30">
+          <DialogHeader>
+            <div className="flex items-center gap-3">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/20">
+                <CheckCircle className="h-7 w-7 text-primary" />
+              </div>
+              <div>
+                <DialogTitle className="text-xl">Thank You!</DialogTitle>
+                <DialogDescription>
+                  Your partnership request has been submitted successfully. Our team will get back to you shortly.
+                </DialogDescription>
+              </div>
+            </div>
+          </DialogHeader>
+          <DialogFooter className="sm:justify-center">
+            <Button onClick={closePopup} variant="hero" size="lg">
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
